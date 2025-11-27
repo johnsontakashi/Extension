@@ -1,0 +1,30 @@
+ICON FILES NEEDED:
+
+Since this is a text-based environment, I cannot create actual PNG image files.
+You will need to create or download the following icon files:
+
+1. icon16.png (16x16 pixels)
+2. icon48.png (48x48 pixels) 
+3. icon128.png (128x128 pixels)
+
+OPTION 1 - Create Simple Icons:
+- Use any image editor (MS Paint, GIMP, Photoshop, etc.)
+- Create solid color squares in the required sizes
+- Save as PNG format
+- Suggested colors: Blue (#007bff) or Green (#28a745)
+
+OPTION 2 - Download Icons:
+- Search for "Chrome extension icon" on icon websites
+- Use free icon resources like Flaticon, Icons8, or similar
+- Ensure icons are square and the right dimensions
+
+OPTION 3 - Remove Icons (Alternative):
+If you don't want icons, remove this section from manifest.json:
+
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png", 
+    "128": "icon128.png"
+  }
+
+The extension will work without icons (Chrome will use a default icon).

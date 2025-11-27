@@ -1,0 +1,41 @@
+{
+  "manifest_version": 3,
+  "name": "Auto Refresh & Task Notifier",
+  "version": "1.0",
+  "description": "Automatically refreshes the first pinned tab and notifies about tasks without 'Contacted' text",
+  
+  "permissions": [
+    "tabs",
+    "scripting", 
+    "notifications",
+    "activeTab",
+    "storage"
+  ],
+  
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  
+  "background": {
+    "service_worker": "background.js"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+  
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Auto Refresh & Task Notifier"
+  },
+  
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png", 
+    "128": "icon128.png"
+  }
+}

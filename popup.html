@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Auto Refresh & Task Notifier</title>
+  <style>
+    body {
+      width: 350px;
+      min-height: 400px;
+      margin: 0;
+      padding: 16px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f8f9fa;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #e9ecef;
+    }
+    
+    .header h1 {
+      color: #2c3e50;
+      font-size: 18px;
+      margin: 0 0 8px 0;
+    }
+    
+    .header p {
+      color: #6c757d;
+      font-size: 12px;
+      margin: 0;
+    }
+    
+    .status-section {
+      background: white;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    
+    .status-item:last-child {
+      margin-bottom: 0;
+    }
+    
+    .status-label {
+      color: #495057;
+      font-weight: 500;
+    }
+    
+    .status-value {
+      color: #28a745;
+      font-weight: 600;
+    }
+    
+    .status-value.inactive {
+      color: #dc3545;
+    }
+    
+    .status-value.warning {
+      color: #ffc107;
+    }
+    
+    .controls {
+      background: white;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .control-button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 8px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .control-button:last-child {
+      margin-bottom: 0;
+    }
+    
+    .btn-primary {
+      background: #007bff;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #0056b3;
+    }
+    
+    .btn-success {
+      background: #28a745;
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background: #1e7e34;
+    }
+    
+    .btn-warning {
+      background: #ffc107;
+      color: #212529;
+    }
+    
+    .btn-warning:hover {
+      background: #e0a800;
+    }
+    
+    .btn-danger {
+      background: #dc3545;
+      color: white;
+    }
+    
+    .btn-danger:hover {
+      background: #c82333;
+    }
+    
+    .recent-tasks {
+      background: white;
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .recent-tasks h3 {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      color: #495057;
+      font-weight: 600;
+    }
+    
+    .task-list {
+      max-height: 150px;
+      overflow-y: auto;
+    }
+    
+    .task-item {
+      padding: 8px 0;
+      border-bottom: 1px solid #e9ecef;
+      font-size: 12px;
+      color: #6c757d;
+    }
+    
+    .task-item:last-child {
+      border-bottom: none;
+    }
+    
+    .no-tasks {
+      text-align: center;
+      color: #adb5bd;
+      font-style: italic;
+      padding: 20px 0;
+      font-size: 13px;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid #e9ecef;
+      font-size: 11px;
+      color: #adb5bd;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Auto Refresh & Task Notifier</h1>
+    <p>Automatically monitors your pinned tab for new tasks</p>
+  </div>
+  
+  <div class="status-section">
+    <div class="status-item">
+      <span class="status-label">Extension Status:</span>
+      <span class="status-value" id="extensionStatus">Active</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Pinned Tabs:</span>
+      <span class="status-value" id="pinnedTabsCount">0</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Last Check:</span>
+      <span class="status-value" id="lastCheck">Never</span>
+    </div>
+    <div class="status-item">
+      <span class="status-label">Tasks Found:</span>
+      <span class="status-value" id="tasksFound">0</span>
+    </div>
+  </div>
+  
+  <div class="controls">
+    <button class="control-button btn-primary" id="refreshNow">Refresh Now</button>
+    <button class="control-button btn-success" id="testNotification">Test Notification</button>
+    <button class="control-button btn-warning" id="clearHistory">Clear History</button>
+  </div>
+  
+  <div class="recent-tasks">
+    <h3>Recent Tasks (Last 24h)</h3>
+    <div class="task-list" id="taskList">
+      <div class="no-tasks">No tasks found yet</div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    v1.0 | Refreshes every 5 minutes
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
